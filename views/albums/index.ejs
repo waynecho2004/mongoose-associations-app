@@ -1,0 +1,8 @@
+<h1>All Albums</h1>
+<ul>
+    <% for( let i = 0; i < albums.length; i++ ) { %>
+        <li>
+            <a href="/albums/<%=albums[i].id%>"><%=albums[i].name%></a>
+        </li>
+    <% } %>
+</ul>

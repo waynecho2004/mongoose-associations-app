@@ -24,3 +24,12 @@ router.get('/:albumId', (req, res) => {
         res.render('albums/show.ejs', { album });
     });
 });
+
+// Index
+router.get('/', (req, res) => {
+    Album.find({}, (error, albums) => {
+      res.render('albums/index.ejs', {
+        albums,
+      })
+    })
+  })
