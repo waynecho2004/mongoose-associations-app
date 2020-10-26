@@ -1,4 +1,5 @@
 const router = require('express').Router();
+const user = require('../models/user');
 // const User = require('../models/user').User;
 // const Tweet = require('../models/user').Tweet;
 // You can replace above two line with below line
@@ -16,7 +17,6 @@ router.get('/:userId', (req, res) => {
     res.render('users/show.ejs', { user });
   });
 });
-
 
 // CREATE A NEW USER
 router.post('/', (req, res) => {
@@ -38,6 +38,23 @@ router.post('/:userId/tweets', (req, res) => {
     user.save((err, user) => {
       res.redirect(`/users/${user.id}`);
     });
+  });
+});
+
+// Delete a specic Tweet
+router.delete('/:userId/tweets/:tweetId', (req, res) => {
+  const userId = req.params.userId;
+  const tweetId = req.params.tweetId;
+  console.log('Delete ' + tweetId);
+
+  // find user in db by id and remove selected tweet
+  User.findById(userId, (error, foundUser) => {
+    // find tweet embbed in user
+    foundUser.tweets.id(tweetId).remove();
+    // update tweet text and complete with data from request body
+    foundUser.save((err, savedUser) => {
+      res.redirect(`/users/${foundUser.id}`);
+    })
   });
 });
 
