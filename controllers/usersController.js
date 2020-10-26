@@ -45,7 +45,7 @@ router.post('/:userId/tweets', (req, res) => {
 router.delete('/:userId/tweets/:tweetId', (req, res) => {
   const userId = req.params.userId;
   const tweetId = req.params.tweetId;
-  console.log('Delete ' + tweetId);
+  // console.log('Delete tweet ' + tweetId);
 
   // find user in db by id and remove selected tweet
   User.findById(userId, (error, foundUser) => {
@@ -56,6 +56,24 @@ router.delete('/:userId/tweets/:tweetId', (req, res) => {
       res.redirect(`/users/${foundUser.id}`);
     })
   });
+});
+
+// Delete a user
+router.delete('/:userId', (req, res) => {
+  const userId = req.params.userId;
+  console.log('Delete user ' + userId);
+
+  // find user in db by id and remove selected tweet
+  User.findById(userId, (error, foundUser) => {
+    // find tweet embbed in user and remove them
+    foundUser.tweets.forEach(tweet => {
+      foundUser.tweets.id(tweet.id).remove();
+    })
+    User.findByIdAndRemove(userId, (err) => {
+      res.redirect('/');
+    })
+  });
+
 });
 
 module.exports = router;
