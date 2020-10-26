@@ -2,16 +2,22 @@ const mongoose = require('mongoose');
 
 // Setu up schemas
 
-const photoSchema = new mongoose.Schema({
-    title: String,
-    image: String
-});
+const photoSchema = new mongoose.Schema(
+    {
+        title: String,
+        image: String
+    },
+    { timestamps: true }
+);
 
-const albumSchema = new mongoose.Schema({
-    name: String,
-    // embedded photos in album
-    photos: [photoSchema],
-});
+const albumSchema = new mongoose.Schema(
+    {
+        name: String,
+        // embedded photos in album
+        photos: [photoSchema],
+    },
+    { timestamps: true }
+);
 
 // Manipulate data with moels
 const Album = mongoose.model('Album', albumSchema);

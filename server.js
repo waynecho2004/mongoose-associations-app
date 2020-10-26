@@ -21,7 +21,9 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.static('public'));
 app.use(methodOverride('_method'));
  
+// Import controllers
 app.use('/users', require('./controllers/usersController'));
+app.use('/albums', require('./controllers/albumController'));
 
 app.get('/', (req, res) => {
   res.render('home.ejs');
