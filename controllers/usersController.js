@@ -28,7 +28,7 @@ router.post('/', (req, res) => {
 
 // CREATE TWEET EMBEDDED IN USER
 router.post('/:userId/tweets', (req, res) => {
-  console.log(req.body.tweetText);
+  console.log(req.body);
   // store new tweet in memory with data from request body
   const newTweet = new Tweet({ tweetText: req.body.tweetText });
 

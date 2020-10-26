@@ -1,8 +1,7 @@
 const mongoose = require('mongoose');
 
 const tweetSchema = new mongoose.Schema({
-  text: String,
-  date: Date,
+  tweetText: String
 });
 
 const userSchema = new mongoose.Schema({
