@@ -1,0 +1,22 @@
+<h1><%= album.name %>'s Detail Page</h1>
+<h4>Create a New Photo</h4>
+<form action="/albums/<%= album.id %>/photos" method="POST">
+  <div class="form-group">
+    <label for="title">Title</label>
+    <input
+      type="text"
+      class="form-control"
+      id="title"
+      name="title"
+    />
+  </div>
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+
+<h1>Photos</h1>
+
+<ul>
+  <% album.photos.forEach(photo => { %>
+  <li><%= photo.title %></li>
+  <% }) %>
+</ul>
