@@ -41,6 +41,15 @@ router.post('/:userId/tweets', (req, res) => {
   });
 });
 
+// Index
+router.get('/', (req, res) => {
+  User.find({}, (error, users) => {
+    res.render('users/index.ejs', {
+      users,
+    })
+  })
+})
+
 // Delete a specic Tweet
 router.delete('/:userId/tweets/:tweetId', (req, res) => {
   const userId = req.params.userId;
@@ -70,7 +79,7 @@ router.delete('/:userId', (req, res) => {
       foundUser.tweets.id(tweet.id).remove();
     })
     User.findByIdAndRemove(userId, (err) => {
-      res.redirect('/');
+      res.redirect('/users');
     })
   });
 
