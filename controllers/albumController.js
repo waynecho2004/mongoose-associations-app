@@ -25,6 +25,26 @@ router.get('/:albumId', (req, res) => {
     });
 });
 
+// Create a photo Embedded In Album
+router.post('/:albumId/photos', (req, res) => {
+    const albumId = req.params.albumId;
+    console.log(req.body);
+    // store new photo in memory with data from request body
+    const newPhoto = new Photo(
+        { 
+            title: req.body.title,
+            image: req.body.image,
+        });
+  
+    // find user in db by id and add new tweet
+    Album.findById(albumId, (error, album) => {
+      album.photos.push(newPhoto)
+      album.save((err, album) => {
+        res.redirect(`/albums/${album.id}`);
+      });
+    });
+  });
+
 // Index
 router.get('/', (req, res) => {
     Album.find({}, (error, albums) => {

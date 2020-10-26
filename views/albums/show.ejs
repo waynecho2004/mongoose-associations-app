@@ -21,6 +21,9 @@
 
 <ul>
   <% album.photos.forEach(photo => { %>
-  <li><%= photo.title %></li>
+    <li>
+        <%= photo.title %><br>
+        <img src="<%=photo.image%>" alt="Image">
+    </li>
   <% }) %>
 </ul>
