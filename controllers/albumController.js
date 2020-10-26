@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { Album, Photo } = require('../models/album');
+const { Album, Song } = require('../models/album');
 module.exports = router;
 
 // New Album
@@ -15,30 +15,30 @@ router.post('/', (req, res) => {
     });
 });
 
-// Create a photo for an existing album
+// Create a Song for an existing album
 router.get('/:albumId', (req, res) => {
     const albumId = req.params.albumId;
-    // Find album in dby by id, then add new photo
+    // Find album in dby by id, then add new Song
     Album.findById(albumId, (error, album) => {
         if(error) res.send(error);
         res.render('albums/show.ejs', { album });
     });
 });
 
-// Create a photo Embedded In Album
-router.post('/:albumId/photos', (req, res) => {
+// Create a Song Embedded In Album
+router.post('/:albumId/songs', (req, res) => {
     const albumId = req.params.albumId;
     console.log(req.body);
-    // store new photo in memory with data from request body
-    const newPhoto = new Photo(
+    // store new Song in memory with data from request body
+    const newSong = new Song(
         { 
             title: req.body.title,
-            image: req.body.image,
+            artist: req.body.artist,
         });
   
     // find user in db by id and add new tweet
     Album.findById(albumId, (error, album) => {
-      album.photos.push(newPhoto)
+      album.songs.push(newSong)
       album.save((err, album) => {
         res.redirect(`/albums/${album.id}`);
       });

@@ -2,10 +2,10 @@ const mongoose = require('mongoose');
 
 // Setu up schemas
 
-const photoSchema = new mongoose.Schema(
+const songSchema = new mongoose.Schema(
     {
         title: String,
-        image: String
+        artist: String,
     },
     { timestamps: true }
 );
@@ -13,15 +13,15 @@ const photoSchema = new mongoose.Schema(
 const albumSchema = new mongoose.Schema(
     {
         name: String,
-        // embedded photos in album
-        photos: [photoSchema],
+        // embedded Songs in album
+        songs: [songSchema],
     },
     { timestamps: true }
 );
 
 // Manipulate data with moels
 const Album = mongoose.model('Album', albumSchema);
-const Photo = mongoose.model('Photo', photoSchema);
+const Song = mongoose.model('Song', songSchema);
 
 // Export Models
-module.exports = { Album, Photo };
+module.exports = { Album, Song };

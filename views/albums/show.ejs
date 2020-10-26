@@ -1,6 +1,6 @@
 <h1><%= album.name %>'s Detail Page</h1>
 <h4>Create a New Photo</h4>
-<form action="/albums/<%= album.id %>/photos" method="POST">
+<form action="/albums/<%= album.id %>/songs" method="POST">
   <div class="form-group">
     <label for="title">Title</label>
     <input
@@ -11,19 +11,18 @@
     />
   </div>
   <div class="form-group">
-    <label for="image">Image</label>
-    <input type="text" class="form-control" id="image" name="image" />
+    <label for="artist">Image</label>
+    <input type="artist" class="form-control" id="artist" name="artist" />
   </div>  
   <button type="submit" class="btn btn-primary">Submit</button>
 </form>
 
-<h1>Photos</h1>
+<h1>Songs</h1>
 
 <ul>
-  <% album.photos.forEach(photo => { %>
+  <% album.songs.forEach(song => { %>
     <li>
-        <%= photo.title %><br>
-        <img src="<%=photo.image%>" alt="Image">
+        <%= song.title %> by <%= song.artist %>
     </li>
   <% }) %>
 </ul>
