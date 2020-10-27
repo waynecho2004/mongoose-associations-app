@@ -1,5 +1,5 @@
 <h1><%= album.name %>'s Detail Page</h1>
-<h4>Create a New Photo</h4>
+<h4>Create a New Song</h4>
 <form action="/albums/<%= album.id %>/songs" method="POST">
   <div class="form-group">
     <label for="title">Title</label>
@@ -16,7 +16,9 @@
   </div>  
   <button type="submit" class="btn btn-primary">Submit</button>
 </form>
-
+<form action="/albums/<%= album.id %>?_method=DELETE" method="POST">
+  <button type="submit" class="btn btn-primary">Delete</button>
+</form>
 <h1>Songs</h1>
 
 <ul>
