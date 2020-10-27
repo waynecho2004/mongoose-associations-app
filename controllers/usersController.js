@@ -41,6 +41,39 @@ router.post('/:userId/tweets', (req, res) => {
   });
 });
 
+// Edit tweet embedded in an user
+router.get('/:userId/tweets/:tweetId/edit', (req, res) => {
+  const userId = req.params.userId;
+  const tweetId = req.params.tweetId;
+
+  // find user by user id
+  User.findById(userId, (error, foundUser) => {
+      // find tweet embedded in album
+      const foundTweet = foundUser.tweets.id(tweetId);
+      // Update tweet detail and complte with data from request body
+      res.render('tweets/edit.ejs', { foundUser, foundTweet });
+  });
+}) 
+
+// Update tweet embedded in an user
+router.put('/:userId/tweets/:tweetId', (req, res) => {
+  const userId = req.params.userId;
+  const tweetId = req.params.tweetId;
+  const tweetText = req.body.tweetText;
+
+  // find user by user id
+  User.findById(userId, (error, foundUser) => {
+      // find tweet embedded in user
+      const foundTweet = foundUser.tweets.id(tweetId);
+      // Update tweet detail and complte with data from request body
+      foundTweet.tweetText = tweetText;
+      foundUser.save((error, savedUser) => {
+          res.redirect(`/users/${foundUser.id}`);
+      });
+  });
+})  
+
+
 // Index
 router.get('/', (req, res) => {
   User.find({}, (error, users) => {

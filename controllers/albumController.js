@@ -45,6 +45,38 @@ router.post('/:albumId/songs', (req, res) => {
     });
   });
 
+// Edit song embedded in an album
+router.get('/:albumId/songs/:songId/edit', (req, res) => {
+    const albumId = req.params.albumId;
+    const songId = req.params.songId;
+
+    // find album by album id
+    Album.findById(albumId, (error, foundAlbum) => {
+        // find song embedded in album
+        const foundSong = foundAlbum.songs.id(songId);
+        // Update song detail and complte with data from request body
+        res.render('songs/edit.ejs', { foundAlbum, foundSong });
+    });
+}) 
+
+// Update song embedded in an album
+router.put('/:albumId/songs/:songId', (req, res) => {
+    const albumId = req.params.albumId;
+    const songId = req.params.songId;
+
+    // find album by album id
+    Album.findById(albumId, (error, foundAlbum) => {
+        // find song embedded in album
+        const foundSong = foundAlbum.songs.id(songId);
+        // Update song detail and complte with data from request body
+        foundSong.title = req.body.title;
+        foundSong.artist = req.body.artist;
+        foundAlbum.save((error, savedAlbum) => {
+            res.redirect(`/albums/${foundAlbum.id}`);
+        });
+    });
+})  
+
 // Index
 router.get('/', (req, res) => {
     Album.find({}, (error, albums) => {
